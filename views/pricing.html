@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Pricing Plans</title>
+    <link rel="stylesheet" href="/css/pricing.css">
+  </head>
+  <body>
+    <a href="javascript:history.back()" class="back-arrow" title="Retour">
+      ←
+    </a>
+
+    <div class="plan-container">
+      <div class="plan-header">
+        <h1>Premium Plan</h1>
+      </div>
+
+      <div class="toggle-container">
+        <div class="toggle-switch" data-period="monthly" onclick="togglePeriod(this)">
+          <div class="toggle-slider"></div>
+          <div class="toggle-labels">
+            <span class="toggle-label">MONTHLY</span>
+            <span class="toggle-label">YEARLY</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="plan-details">
+        <div class="plan-price" id="plan-price">€9.99</div>
+        <div class="plan-period" id="plan-period">per month</div>
+
+        <ul class="plan-features">
+          <li>Unlimited QR Code Generation</li>
+          <li>Advanced Analytics</li>
+          <li>Priority Support</li>
+          <li>Custom Branding</li>
+        </ul>
+
+        <button class="subscribe-btn" id="checkout-button">Subscribe Now</button>
+      </div>
+    </div>
+
+   
+    
+    <script src="/js/pricing.js"></script>
+  </body>
+</html>

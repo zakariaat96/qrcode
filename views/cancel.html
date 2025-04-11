@@ -1,0 +1,165 @@
+<html><head><base href="/" />
+    <title>Payment Failed</title>
+    
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background: #1e1e1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .error-container {
+            max-width: 600px;
+            padding: 40px;
+            background: #2d2d2d;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            color: white;
+            text-align: center;
+        }
+
+        .error-animation {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .error-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #ff4444;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .error-x {
+            stroke: #ff4444;
+            stroke-width: 2;
+            stroke-linecap: round;
+            animation: strokeX 0.7s ease-out forwards;
+            stroke-dasharray: 47;
+            stroke-dashoffset: 47;
+        }
+
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes strokeX {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        
+        .retry-btn {
+            padding: 15px 30px;
+            background: #ff4444;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .contact-btn {
+            padding: 15px 30px;
+            background: transparent;
+            border: 2px solid #ff4444;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .retry-btn:hover {
+            background: #ff0000;
+            transform: translateY(-2px);
+        }
+
+        .contact-btn:hover {
+            background: rgba(255, 68, 68, 0.1);
+            transform: translateY(-2px);
+        }
+
+        
+
+        .shake {
+            animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
+</head>
+<body>
+    
+
+    <div class="error-container">
+        <div class="error-animation">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="error-circle" cx="26" cy="26" r="25" fill="none"/>
+                <line class="error-x" x1="18" y1="18" x2="34" y2="34"/>
+                <line class="error-x" x1="34" y1="18" x2="18" y2="34"/>
+            </svg>
+        </div>
+
+        <h1 class="error-title">Payment Failed</h1>
+        <p class="error-message">
+            We're sorry, but there was an error processing your payment.
+            Please review the error details below and try again.
+        </p>
+
+
+        <div>
+            <a href="/pricing" class="retry-btn">Try Again</a>
+            <a href="https://support.example.com" class="contact-btn">Contact Support</a>
+        </div>
+    </div>
+
+    <script>
+        // Add timestamp
+        const timestamp = new Date().toLocaleString();
+        document.getElementById('timestamp').textContent = timestamp;
+
+        // Add shake animation to error container
+        document.addEventListener('DOMContentLoaded', () => {
+            const errorContainer = document.querySelector('.error-container');
+            errorContainer.classList.add('shake');
+            
+            // Remove shake class after animation ends to allow it to be re-added
+            errorContainer.addEventListener('animationend', () => {
+                errorContainer.classList.remove('shake');
+            });
+        });
+
+        // Add shake effect when retry button is clicked
+        document.querySelector('.retry-btn').addEventListener('click', (e) => {
+            const errorContainer = document.querySelector('.error-container');
+            errorContainer.classList.add('shake');
+        });
+    </script>
+</body>
+</html>

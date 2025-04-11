@@ -1,0 +1,193 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <base href="/" />
+  <title>Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- tes styles existants -->
+  <link rel="stylesheet" href="/css/admin.css">
+
+  <!-- Ajoutez ces lignes juste avant la fermeture de votre balise </head> -->
+  
+  <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-messaging-compat.js"></script>
+  <script src="/utils/firebase-messaging.js"></script>
+</head>
+<body>
+<div class="admin-container">
+  <div class="sidebar">
+    <!-- ... contenu sidebar inchangé ... -->
+    <div class="logo-section">
+        <h2>Admin Panel</h2>
+    </div>
+    <nav class="nav-menu">
+        <div class="nav-item active" data-section="dashboard">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+            </svg>
+            Dashboard
+        </div>
+        <div class="nav-item" data-section="users">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+            Users
+        </div>
+        <div class="nav-item" data-section="qrcodes">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-7-2h2V7h-4v2h2z"/>
+            </svg>
+            QR Codes
+        </div>
+        <div class="nav-item" data-section="settings">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
+            </svg>
+            Settings
+        </div>
+    </nav>
+  </div>
+
+  <div class="main-content">
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="content-section active">
+      <div class="header">
+        <input type="text" class="search-bar" placeholder="Search...">
+        <button class="action-btn" onclick="handleLogout()" style="background-color: #f44336;">
+          Logout
+        </button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Total Users</h3>
+          <!-- Ajout d’un ID pour injection dynamique -->
+          <div id="stat-total-users" class="stat-value">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Active QR Codes</h3>
+          <div id="stat-total-qrcodes" class="stat-value">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Today's Scans</h3>
+          <div id="stat-today-scans" class="stat-value">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Revenue</h3>
+          <div id="stat-revenue" class="stat-value">$0</div>
+        </div>
+      </div>
+
+      <table class="data-table" id="dashboard-users-table">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Plan</th>
+            <th>QR Codes</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="dashboard-users-tbody">
+          <!-- Les lignes seront injectées par JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Users Section -->
+    <div id="users" class="content-section">
+      <div class="header">
+        <input type="text" class="search-bar" placeholder="Search users...">
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Join Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="users-tbody">
+          <!-- Injecté dynamiquement -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- QR Codes Section -->
+    <div id="qrcodes" class="content-section">
+      <div class="header">
+        <input type="text" class="search-bar" placeholder="Search QR codes...">
+      </div>
+      <div class="qr-grid" id="qrcodes-grid">
+        <!-- Cartes QR injectées dynamiquement -->
+      </div>
+    </div>
+
+    <div id="settings" class="content-section">
+      <h2>System Settings & Notifications</h2>
+      <div class="settings-form">
+        <div class="form-group">
+          <h3>Send Update Notification</h3>
+          <div class="notification-group">
+            <label>Notification Title</label>
+            <input type="text" placeholder="Enter notification title" class="notification-input">
+          </div>
+          
+          <div class="notification-group">
+            <label>Message Content</label>
+            <textarea class="notification-textarea" placeholder="Enter your update message here..."></textarea>
+          </div>
+          
+          <div class="notification-options">
+            <div class="option-group">
+              <label>Target Audience</label>
+              <select class="notification-select">
+                <option value="all">All Users</option>
+                <option value="free">Free Users</option>
+                <option value="premium">Premium Users</option>
+                <option value="enterprise">Enterprise Users</option>
+              </select>
+            </div>
+
+            <div class="option-group">
+              <label class="option-label">Notification Type</label>
+              <div class="notification-type-options">
+                <div class="checkbox-item">
+                  <input type="checkbox" id="email-notification" checked>
+                  <label for="email-notification">Email</label>
+                </div>
+                
+                <div class="checkbox-item">
+                  <input type="checkbox" id="push-notification">
+                  <label for="push-notification">Push Notification</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="option-group">
+              <label>Priority</label>
+              <select class="notification-select">
+                <option value="normal">Normal</option>
+                <option value="important">Important</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="scheduling-group">
+            <label>Schedule Send (Optional)</label>
+            <input type="datetime-local" class="notification-input">
+          </div>
+          
+          <div class="button-group">
+            <button class="action-btn send-btn">Send Notification</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>

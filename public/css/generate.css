@@ -1,0 +1,1111 @@
+/* Style pour le body pour permettre le scroll */
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    margin-top: 50px;
+    display: block; /* Changé de flex à block pour un meilleur flow */
+    background: linear-gradient(135deg, #1a1c20 0%, #0f1114 100%);
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+}
+
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    padding-top: 60px; 
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    width: 80%;
+    max-width: 600px;
+    margin-left: 500px; /* Make space for sidebar */
+    flex: 1;
+    position: relative;
+}
+
+
+
+
+.second-container {
+background: rgba(255, 255, 255, 0.1);
+padding: 30px;
+padding-top: 60px;
+border-radius: 15px;
+box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+backdrop-filter: blur(4px);
+width: 80%;
+max-width: 600px;
+margin-left: 500px;
+margin-top: 100px !important;
+margin-bottom: 50px !important;
+position: relative;
+}
+
+/* Ajustements pour la modal */
+body.modal-open .second-container {
+    display: none;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    resize: vertical;
+    margin-bottom: 20px;
+}
+
+button {
+    background: linear-gradient(45deg, #6e48aa, #9d50bb);
+    border: none;
+    padding: 12px 30px;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+#qrcode-container {
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+}
+
+#qrcode-image {
+    max-width: 300px;
+    margin: 20px auto;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: white;
+    background: #6e48aa;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 100px;
+    width: 300px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    
+    padding-bottom: 80px; /* Espace pour le bouton sticky */
+    gap: 15px;
+    transition: transform 0.3s ease;
+}
+
+
+
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+
+
+.history-search {
+    width: 100%;
+    padding: 8px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    margin: 10px 0;
+}
+
+.history-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.history-tab {
+    padding: 8px 15px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.history-tab.active {
+    background: #6e48aa;
+}
+
+.qr-history-item {
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.qr-history-item:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.qr-history-item .date {
+    font-size: 0.8em;
+    color: #888;
+}
+
+.qr-history-item .title {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.qr-history-item .stats {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9em;
+    color: #aaa;
+}
+
+#qr-history-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+
+
+
+.loading-indicator {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+
+
+
+
+.modal-content {
+    background: #1a1c20;
+    width: 80%;
+    margin: 0 auto; /* Centre la modale */
+    max-width: 1200px;
+    height: 80vh;
+    border-radius: 15px;
+    padding: 20px 10px; /* Réduit le padding horizontal */
+    position: relative;
+    display: flex;
+    overflow-y: auto;
+}
+
+.modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+
+.session-list {
+display: flex;
+flex-direction: column;
+gap: 15px;
+padding: 10px;
+max-width: 95%; /* Assure que le contenu ne déborde pas */
+margin: 0 auto; /* Centre la liste */
+}
+
+
+
+
+.session-item {
+background: rgba(255, 255, 255, 0.05);
+border-radius: 8px;
+padding: 15px;
+width: 95%; /* Légèrement plus étroit que le conteneur parent */
+margin-left: 10px; /* Pousse les éléments vers la gauche */
+}
+
+.session-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+.recording-controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
+   
+    }
+
+
+.record-btn {
+    background: #ff4444;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+   
+    
+}
+
+
+.record-btn.recording {
+    background: #cc0000;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.recording-status {
+    color: #ff4444;
+    margin-left: 10px;
+    display: none;
+}
+
+.chat-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1100;
+}
+
+
+.chat-container {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    height: 80vh;
+    margin: 50px auto;
+    background: #1a1c20;
+    border-radius: 15px;
+    padding: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+.user-message {
+    background: rgba(110, 72, 170, 0.2);
+    margin-left: auto;
+}
+
+.bot-message {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.timestamp {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Modifions le style spécifique pour le bouton Upgrade Plan */
+.upgrade-btn {
+    width: calc(100% - 40px); /* Réduit la largeur */
+    margin: 10px;
+    background: linear-gradient(45deg, #6e48aa, #9d50bb);
+    color: white;
+    padding: 10px; /* Réduit le padding */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px; /* Réduit la taille de la police */
+    text-align: center;
+    transition: all 0.3s ease;
+    position: sticky; /* Le rend sticky */
+    bottom: 30px; /* Ajoute un espace en bas */
+    box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.upgrade-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
+    background: linear-gradient(45deg, #6e48aa, #9d50bb);
+    
+}
+
+.upgrade-btn:active {
+    transform: translateY(1px);
+}
+
+.upgrade-btn::before {
+    content: "⭐";
+    font-size: 18px;
+}
+.header-zone {
+position: fixed; /* Position fixe par rapport à la fenêtre */
+top: 10px;       /* Décale de 10px du haut */
+right: 10px;     /* Décale de 10px de la droite */
+z-index: 1000;   /* S'assure que le bouton est au-dessus des autres éléments */
+}
+
+.logout-btn {
+background-color: #6e48aa; /* Couleur de fond violette */
+color: white;              /* Texte en blanc */
+border: none;              /* Pas de bordure */
+border-radius: 8px;        /* Coins arrondis */
+padding: 8px 15px;         /* Espacement interne */
+font-weight: bold;         /* Texte en gras */
+cursor: pointer;           /* Curseur pointeur */
+transition: background-color 0.3s ease, transform 0.2s ease; /* Animation douce */
+}
+
+.logout-btn:hover {
+background-color: #9d50bb; /* Couleur plus claire au survol */
+transform: translateY(-2px); /* Légère élévation au survol */
+}
+
+
+
+
+
+/* pour demain*/
+
+
+.hamburger-btn {
+z-index: 2000; /* S'assure que le hamburger est toujours au-dessus */
+display: none; 
+position: fixed;
+top: 20px;
+left: 20px;
+
+background: none;
+border: none;
+cursor: pointer;
+flex-direction: column;
+gap: 5px;
+
+}
+
+
+
+
+.hamburger-btn .bar {
+width: 25px;
+height: 3px;
+background: #fff;
+border-radius: 2px;
+transition: all 0.3s ease;
+}
+
+
+
+body.sidebar-open .sidebar {
+transform: translateX(0);
+box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+z-index: 1050;
+}
+
+.spinner {
+margin: 20px auto;       /* Centre le spinner horizontalement */
+border: 6px solid #f3f3f3;      /* Couleur de fond */
+border-top: 6px solid #9d50bb;  /* Couleur de l’anneau “actif” */
+border-radius: 50%;
+width: 44px;
+height: 44px;
+animation: spin 1s linear infinite;
+}
+
+/* Animation de rotation */
+@keyframes spin {
+0%   { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+
+
+
+
+
+.image-combination-section {
+background: rgba(255, 255, 255, 0.05);
+padding: 20px;
+border-radius: 15px;
+margin-top: 20px;
+}
+
+.upload-button-wrapper {
+display: flex;
+align-items: center;
+gap: 15px;
+margin-top: 10px;
+}
+
+.custom-upload-btn {
+background: linear-gradient(45deg, #6e48aa, #9d50bb);
+border: none;
+padding: 10px 20px;
+color: white;
+border-radius: 25px;
+cursor: pointer;
+font-size: 14px;
+transition: transform 0.3s ease;
+}
+
+.custom-upload-btn:hover {
+transform: scale(1.05);
+}
+
+.file-name {
+color: #aaa;
+font-size: 14px;
+}
+
+.preview-section {
+display: flex;
+gap: 20px;
+margin: 20px 0;
+}
+
+.preview-box {
+flex: 1;
+display: none;
+background: rgba(255, 255, 255, 0.02);
+padding: 15px;
+border-radius: 10px;
+}
+
+.preview-box h4 {
+margin-bottom: 15px;
+color: #fff;
+}
+
+.preview-box img {
+max-width: 100%;
+border-radius: 8px;
+}
+
+.combine-btn {
+display: none;
+background: linear-gradient(45deg, #6e48aa, #9d50bb);
+border: none;
+padding: 12px 30px;
+color: white;
+border-radius: 25px;
+cursor: pointer;
+font-size: 16px;
+margin: 20px auto;
+transition: transform 0.3s ease;
+}
+
+.combine-btn:hover {
+transform: scale(1.05);
+}
+
+.result-section {
+display: none;
+text-align: center;
+margin-top: 30px;
+}
+
+.result-section img {
+max-width: 100%;
+border-radius: 8px;
+margin: 15px 0;
+}
+
+.download-combined-btn {
+display: inline-block;
+background: #6e48aa;
+color: white;
+text-decoration: none;
+padding: 10px 25px;
+border-radius: 25px;
+transition: background-color 0.3s ease;
+}
+
+.download-combined-btn:hover {
+background: #9d50bb;
+}
+
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100px;
+  background: linear-gradient(180deg, rgb(29, 29, 39) 0%, rgba(29, 29, 39, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  box-shadow: 5px 0 20px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.side-menu:hover {
+  width: 110px;
+}
+
+.app-logo {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 40px;
+  filter: drop-shadow(0 0 10px rgba(110, 72, 170, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.app-logo:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.menu-item {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-item:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.menu-item:hover:before {
+  left: 100%;
+}
+
+.menu-item:hover {
+  background: rgba(110, 72, 170, 0.2);
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 5px 15px rgba(110, 72, 170, 0.2);
+}
+
+.menu-item svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover svg {
+  transform: scale(1.1);
+}
+
+.menu-item.active {
+  background: linear-gradient(135deg, #6e48aa 0%, #9d6fbb 100%);
+  box-shadow: 0 5px 15px rgba(110, 72, 170, 0.4);
+  border: none;
+}
+
+.menu-item.active svg {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 48px;
+  background: #141414;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.app-logo {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 90px;
+  transition: transform 0.3s ease;
+}
+
+.app-logo:hover {
+  transform: scale(1.1);
+}
+
+.menu-item {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  cursor: pointer;
+  position: relative;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.menu-item svg {
+  width: 10px;
+  height: 10px;
+  fill: #fff;
+}
+
+.menu-item:hover {
+  opacity: 1;
+}
+
+.menu-item.active {
+  opacity: 1;
+}
+
+.indicator {
+  position: absolute;
+  left: -6px;
+  width: 3px;
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  transition: all 0.3s ease;
+}
+
+.menu-item:nth-child(1) .indicator.active {
+  background: #ff4757;
+}
+
+.menu-item:nth-child(2) .indicator.active {
+  background: #ffd700;
+}
+
+
+
+
+
+
+
+
+/* Media queries pour le responsive */
+@media (max-width: 768px) {
+
+
+.history-header {
+    margin-left: 55px; /* Maintient l'espacement même en version mobile */
+    margin-top: 70px;
+}
+
+
+
+.recording-controls {
+    top: 60px; /* Déplace les contrôles d'enregistrement vers le bas */
+    left: 20px;
+    margin-top: 10px; /* Ajoute de l'espace entre le titre et le bouton */
+}
+
+.record-btn {
+    padding: 6px 12px; /* Réduit la taille du bouton */
+    font-size: 14px; /* Ajuste la taille de la police */
+}
+
+
+.sidebar .logout-btn {
+    display: none; /* Cache le bouton "Déconnexion" dans la partie historique */
+}
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    width: 80%;
+    max-width: 300px;
+    z-index: 1000; /* Assure que l'historique est au-dessus du contenu principal */
+    background: rgba(0, 0, 0, 0.9); /* Fond semi-transparent */
+    margin-left: 35px;
+}
+
+.container, .second-container {
+   
+    width: 100% !important;
+    max-width: 95% !important;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-left: 30px;
+    
+}
+
+
+.container{
+   
+    z-index: 1; /* Assure que le contenu principal est en dessous de l'historique */
+    padding-top: 100px; /* Ajoute de l'espace en haut pour éviter le chevauchement */
+}
+
+ /* Cache le second container dans la sidebar */
+ .sidebar .second-container {
+    display: none;
+}
+
+/* Ajustements pour les containers quand la sidebar est ouverte */
+body.sidebar-open .container,
+body.sidebar-open .second-container {
+    opacity: 0.5;
+}
+
+/* Espacement correct entre les containers */
+.second-container {
+    margin-top: -100px !important;
+    margin-bottom: 40px !important;
+}
+
+/* Ajustements pour la modal */
+body.modal-open .second-container {
+    display: none;
+}
+
+
+
+
+
+
+.hamburger-btn {
+    display: flex; /* On affiche le bouton hamburger sur mobile */
+}
+
+.header-zone {
+    position: fixed;
+    top: 20px;
+    right: 40px;
+    z-index: 1100;
+   
+}
+
+.small-btn {
+padding: 5px 10px; /* Ajustez les valeurs selon vos besoins */
+font-size: 12px; /* Ajustez la taille du texte */
+border-radius: 4px; /* Optionnel : pour des coins arrondis */
+}
+
+    /* Affiche le bouton uniquement sur la page de génération de QR code */
+.container .header-zone {
+    display: block; /* Affiche le bouton quand il est dans le container */
+}
+/* Affiche l'historique lorsqu'il est ouvert */
+body.sidebar-open .sidebar {
+    transform: translateX(0);
+}
+
+/* Assombrit le contenu principal lorsque l'historique est ouvert */
+body.sidebar-open .container {
+    opacity: 0.5;
+}
+
+/* Masque l'historique lorsque la modale est ouverte */
+body.modal-open .sidebar {
+    display: none;
+}
+
+
+
+
+
+.modal-content {
+    width: 100%;
+    height: 70vh;
+    margin: 10px;
+    padding: 15px;
+    overflow-y: hidden;
+    margin-top: 100px;
+}
+
+
+.session-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 0; /* Adjust padding as needed */
+}
+
+
+
+.session-header h2 {
+    font-size: 1.2em;
+}
+
+
+.session-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.9em;
+}
+
+
+
+
+.session-item {
+  
+    margin-bottom: 8px;
+    min-width: 100%; /* Make items span full width */
+    padding: 20px; /* Increased padding */
+    margin-bottom: 15px; /* Increased margin */
+    font-size: 16px; /* Increased font size */
+}
+
+.session-item h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.session-item p {
+    font-size: 14px;
+    margin: 4px 0;
+}
+
+.session-item small {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 8px 0;
+    width: 100%;
+    text-align: center;
+    background: rgba(110, 72, 170, 0.1);
+    border-radius: 4px;
+
+    font-size: 14px;
+}
+
+.session-list {
+    padding: 10px;
+    max-height: calc(100vh - 180px);
+}
+.chat-container {
+    width: 70%;
+    margin-top: 70px; /* Plus d'espace en haut sur mobile */
+    height: 75vh;
+}
+
+.message {
+    max-width: 90%; /* Légèrement plus large sur mobile */
+    font-size: 14px; /* Taille de police légèrement réduite */
+    padding: 10px;
+}
+
+.chat-messages {
+    padding: 10px;
+}
+
+.second-container {
+margin-top: 40px !important;
+margin-bottom: 40px !important;
+}
+
+.image-combination-section {
+background: rgba(255, 255, 255, 0.05);
+padding: 20px;
+border-radius: 15px;
+margin-top: 20px;
+}
+
+.upload-button-wrapper {
+display: flex;
+align-items: center;
+gap: 15px;
+margin-top: 10px;
+}
+
+.custom-upload-btn {
+background: linear-gradient(45deg, #6e48aa, #9d50bb);
+border: none;
+padding: 10px 20px;
+color: white;
+border-radius: 25px;
+cursor: pointer;
+font-size: 14px;
+transition: transform 0.3s ease;
+}
+
+.custom-upload-btn:hover {
+transform: scale(1.05);
+}
+
+.file-name {
+color: #aaa;
+font-size: 14px;
+}
+
+.preview-section {
+display: flex;
+gap: 20px;
+margin: 20px 0;
+}
+
+.preview-box {
+flex: 1;
+display: none;
+background: rgba(255, 255, 255, 0.02);
+padding: 15px;
+border-radius: 10px;
+}
+
+.preview-box h4 {
+margin-bottom: 15px;
+color: #fff;
+}
+
+.preview-box img {
+max-width: 100%;
+border-radius: 8px;
+}
+
+.combine-btn {
+display: none;
+background: linear-gradient(45deg, #6e48aa, #9d50bb);
+border: none;
+padding: 12px 30px;
+color: white;
+border-radius: 25px;
+cursor: pointer;
+font-size: 16px;
+margin: 20px auto;
+transition: transform 0.3s ease;
+}
+
+.combine-btn:hover {
+transform: scale(1.05);
+}
+
+.result-section {
+display: none;
+text-align: center;
+margin-top: 30px;
+}
+
+.result-section img {
+max-width: 100%;
+border-radius: 8px;
+margin: 15px 0;
+}
+
+.download-combined-btn {
+display: inline-block;
+background: #6e48aa;
+color: white;
+text-decoration: none;
+padding: 10px 25px;
+border-radius: 25px;
+transition: background-color 0.3s ease;
+}
+
+.download-combined-btn:hover {
+background: #9d50bb;
+}
+
+
+
+
+}
+

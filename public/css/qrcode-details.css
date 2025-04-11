@@ -1,0 +1,100 @@
+body {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+  }
+
+  .details-container {
+    background: #2a2a2a;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+  }
+
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    background: #6e48aa;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .back-button:hover {
+    background: #8257e6;
+    transform: translateY(-1px);
+  }
+
+  .back-button::before {
+    content: "←";
+    margin-right: 8px;
+    font-size: 18px;
+  }
+
+  h2 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .qr-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 20px 0;
+  }
+
+  .qr-container img {
+    display: block;
+    max-width: 220px;
+    height: auto;
+  }
+
+  .property-info {
+    background: #333333;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    line-height: 1.6;
+  }
+
+  .property-info strong {
+    color: #8257e6;
+  }
+
+  @media (max-width: 600px) {
+    body {
+      padding: 10px;
+    }
+
+    .details-container {
+      padding: 20px;
+    }
+
+    .qr-container img {
+      max-width: 180px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+  }

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>QR Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="/icon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/index-chat.css">
+    
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <div class="status-dot"></div>
+            </div>
+            <span class="header-title">Mouda Assistant</span>
+        </div>
+        <div class="header-controls">
+            
+            <span class="live-indicator">EN DIRECT</span>
+            <!--<button class="chat-history-button" id="chatHistoryBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+            </button>-->
+            <button class="control-button" id="connect-button"> 
+                 Commencer
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 11V7.5a1.5 1.5 0 0 1 3 0V11m0 0V5.5a1.5 1.5 0 0 1 3 0V11m0 0V7.5a1.5 1.5 0 0 1 3 0V11m0 0v4.5a6 6 0 0 1-6 6h-3a6 6 0 0 1-6-6v-2a1.5 1.5 0 0 1 3 0V11"/>
+                </svg>
+                 
+            </button>
+            <div class="toggle-switch">
+                <input type="checkbox" id="toggleDID">
+                <label class="switch" for="toggleDID"></label>
+                <span>Faire parler l'avatar</span>
+            </div>
+            
+        </div>
+
+        
+    </header>
+    <!--
+    <div class="chat-history-popup" id="chatHistoryPopup">
+        <div class="chat-history-header">
+            <h3>Historique des conversations</h3>
+        </div>
+        <div class="chat-history-content" id="chatHistoryContent">
+           
+        </div>
+    </div>-->
+
+    <main class="main-content">
+        <div class="video-container">
+            <video id="talk-video" autoplay playsinline></video>
+        </div>
+
+        <div class="chat-container" id="response-container">
+            <div class="message assistant">
+                Mon nom est Mouda et je suis votre assistante. Comment puis-je vous aider ?
+            </div>
+        </div>
+    </main>
+
+    <div class="input-area">
+        <div class="input-wrapper">
+            <textarea id="user-input-field" placeholder="Tapez votre message ici..." rows="1"></textarea>
+            <button class="action-button" id="voice-typing-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="23"/>
+                    <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+            </button>
+        </div>
+        <button class="action-button" id="talk-button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13"/>
+                <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+            </svg>
+        </button>
+    </div>
+
+    <div id="status">
+        <span id="ice-gathering-status-label"></span>
+        <span id="ice-status-label"></span>
+        <span id="peer-status-label"></span>
+        <span id="signaling-status-label"></span>
+        <span id="streaming-status-label"></span>
+    </div>
+    <script src="/js/index-chat.js"></script>
+    <script type="module" src="/js/streaming-client-api.js"></script>
+    <script type="module" src="/js/langindex.js"></script>
+</body>
+</html>

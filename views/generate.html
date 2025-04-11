@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="/" />
+    <title>Property QR Code Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/generate.css">
+  </head>
+  <body>
+    <!-- Side Menu -->
+    <div class="side-menu">
+      <img class="app-logo" id="profilePhoto" alt="Profile photo" style="border-radius: 50%;">
+
+      
+      <div class="menu-item active" id="editBtn">
+        <div class="indicator active"></div>
+        <svg viewBox="0 0 24 24">
+          <path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+        </svg>
+      </div>
+      <div id="tooltip" style="display: none; position: absolute; background-color: #333; color:#fff; padding: 5px 10px; border-radius:4px; font-size: 12px; white-space: nowrap;">Edit listing</div>
+      
+      
+      <!--
+      <div class="menu-item">
+        <div class="indicator"></div>
+        <svg viewBox="0 0 24 24">
+          <path d="M4 14h4v-4H4v4zm0 5h4v-4H4v4zM4 9h4V5H4v4zm5 5h12v-4H9v4zm0 5h12v-4H9v4zM9 5v4h12V5H9z"/>
+        </svg>
+      </div>
+
+      <div class="menu-item">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+        </svg>
+      </div>
+
+      <div class="menu-item">
+        <svg viewBox="0 0 24 24">
+          <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.63-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+        </svg>
+      </div>
+
+      <div class="menu-item">
+        <svg viewBox="0 0 24 24">
+          <path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+        </svg>
+      </div>-->
+    </div>
+
+    <!-- Sidebar: QR Code History -->
+    <div class="sidebar">
+      <div class="history-header">
+        <h2>QR Code History</h2>
+      </div>
+
+      <input
+        type="text"
+        class="history-search"
+        placeholder="Search QR codes..."
+        onkeyup="searchHistory(this.value)"
+      >
+
+      <div class="history-tabs">
+        <div class="history-tab active" onclick="filterHistory('all', event)">All</div>
+        <div class="history-tab" onclick="filterHistory('recent', event)">Recent</div>
+      </div>
+
+      <div id="qr-history-list">
+        <!-- History items will be populated here -->
+      </div>
+
+      <button class="upgrade-btn small-btn" id="upgrade-plan">Upgrade Plan</button>
+    </div>
+
+    <!-- Nouveau bouton hamburger -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open sidebar">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <!-- Container Principal -->
+    <div class="container">
+      <h1>Generate Property QR Code</h1>
+      <div class="form-group">
+        <label for="propertyInfo">Property Information:</label>
+        <textarea
+          id="propertyInfo"
+          placeholder="Enter detailed information about your property (description, features, price, location, etc.)"
+        ></textarea>
+      </div>
+      <button onclick="generateQRCode()">Generate QR Code</button>
+
+      <!-- Spinner de chargement (invisible par défaut) -->
+      <div id="loadingSpinner" class="spinner" style="display: none;"></div>
+
+      <div id="qrcode-container">
+        <img id="qrcode-image" alt="QR Code">
+        <br>
+        <a id="download-link" class="download-btn small-btn" download="property-qr.png">
+          Download QR Code
+        </a>
+      </div>
+
+      <!-- Contrôles d'enregistrement -->
+      <div class="recording-controls">
+        <button class="record-btn" id="startRecord">
+          <svg width="16" height="16" viewBox="0 0 16 16">
+            <circle cx="8" cy="8" r="8" fill="currentColor"/>
+          </svg>
+          Start Recording
+        </button>
+        <button class="record-btn" id="stopRecord" style="display: none;">
+          <svg width="16" height="16" viewBox="0 0 16 16">
+            <rect x="2" y="2" width="12" height="12" fill="currentColor"/>
+          </svg>
+          Stop Recording
+        </button>
+        <span class="recording-status" id="recordingStatus">Recording in progress...</span>
+      </div>
+
+      <!-- Modal pour les sessions QR Code -->
+      <div class="modal-overlay" id="sessionsModal">
+        <div class="modal-content">
+          <button class="modal-close" onclick="closeSessionsModal()">×</button>
+          <div class="session-header">
+            <h2>QR Code Sessions</h2>
+            <div class="session-stats">
+              <span id="totalInteractions">Total Interactions: 0</span>
+              <span id="totalSessions">Total Sessions: 0</span>
+            </div>
+          </div>
+          <div class="session-list" id="sessionsList">
+            <!-- Sessions will be populated here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Affichage des crédits -->
+      <div
+        id="credit-display"
+        style="position: absolute; top: 20px; right: 20px; color: red; font-size: 18px; font-weight: bold;"
+      >
+        Credits : <span id="credits-count">0</span>
+      </div>
+    </div>
+
+    <!-- Deuxième container : Combiner image de propriété et QR Code -->
+    <div class="container second-container">
+      <h2>Combine Property Image with QR Code</h2>
+      <div class="image-combination-section">
+        <div class="upload-section">
+          <!-- Upload de l'image de la propriété -->
+          <div class="form-group">
+            <label>Property Image:</label>
+            <div class="upload-button-wrapper">
+              <input type="file" id="propertyImage" accept="image/*" style="display: none;">
+              <button
+                onclick="document.getElementById('propertyImage').click()"
+                class="custom-upload-btn"
+              >
+                Upload Property Image
+              </button>
+              <span id="propertyFileName" class="file-name"></span>
+            </div>
+          </div>
+
+          <!-- Upload de l'image du QR Code -->
+          <div class="form-group">
+            <label>QR Code Image:</label>
+            <div class="upload-button-wrapper">
+              <input type="file" id="qrCodeImage" accept="image/*" style="display: none;">
+              <button
+                onclick="document.getElementById('qrCodeImage').click()"
+                class="custom-upload-btn"
+              >
+                Upload QR Code
+              </button>
+              <span id="qrFileName" class="file-name"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section de prévisualisation -->
+        <div class="preview-section">
+          <div id="propertyPreview" class="preview-box">
+            <h4>Property Image Preview</h4>
+            <img id="propertyPreviewImg">
+          </div>
+          <div id="qrPreview" class="preview-box">
+            <h4>QR Code Preview</h4>
+            <img id="qrPreviewImg">
+          </div>
+        </div>
+
+        <!-- Bouton pour combiner les images -->
+        <button id="combineButton" onclick="combineImages()" class="combine-btn">
+          Combine Images
+        </button>
+
+        <!-- Section résultat -->
+        <div id="finalImageContainer" class="result-section">
+          <h4>Final Result</h4>
+          <img id="finalImage">
+          <a
+            id="downloadFinal"
+            download="property-with-qr.png"
+            class="download-combined-btn"
+          >
+            Download Combined Image
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone d'en-tête avec bouton de déconnexion -->
+    <div class="header-zone">
+      <button class="logout-btn small-btn" onclick="handleLogout()">Déconnexion</button>
+    </div>
+
+    <script src="js/generate.js"></script>
+  </body>
+</html>
